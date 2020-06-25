@@ -57,7 +57,6 @@ data class BookRegistration (
     var title: String = "",
 
     @Schema(description = BOOK_AUTHOR_IDS_DESCRIPTION, example = BOOK_AUTHOR_IDS_EXAMPLE)
-    @field:NotBlank(message = REQUIRED_FIELD_VALIDATION_MESSAGE)
     @field:NotEmpty(message = AUTHOR_ID_LIST_VALIDATION_MESSAGE)
     var authorIds: List<Long>,
 

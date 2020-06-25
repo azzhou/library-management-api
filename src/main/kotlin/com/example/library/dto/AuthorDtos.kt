@@ -5,6 +5,7 @@ import com.example.library.entity.Author
 import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.core.Relation
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 
@@ -45,10 +46,12 @@ open class AuthorSimpleResponse (
 @Schema(description = AUTHOR_REGISTRATION_DESCRIPTION)
 data class AuthorRegistration (
     @Schema(description = AUTHOR_FIRST_NAME_DESCRIPTION, example = AUTHOR_FIRST_NAME_EXAMPLE)
+    @field:NotBlank(message = REQUIRED_FIELD_VALIDATION_MESSAGE)
     @field:Size(message = SIZE_VALIDATION_MESSAGE, min = 1, max = 30)
     var firstName: String = "",
 
     @Schema(description = AUTHOR_LAST_NAME_DESCRIPTION, example = AUTHOR_LAST_NAME_EXAMPLE)
+    @field:NotBlank(message = REQUIRED_FIELD_VALIDATION_MESSAGE)
     @field:Size(message = SIZE_VALIDATION_MESSAGE, min = 1, max = 30)
     var lastName: String = ""
 )

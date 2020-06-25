@@ -38,12 +38,10 @@ open class LoanResponse (
 @Schema(description = LOAN_REGISTRATION_DESCRIPTION)
 data class LoanRegistration (
     @Schema(description = USER_ID_DESCRIPTION, example = USER_ID_EXAMPLE)
-    @field:NotBlank(message = REQUIRED_FIELD_VALIDATION_MESSAGE)
     @field:Min(value = 0, message = USER_ID_VALIDATION_MESSAGE)
     var userId: Long = -1,
 
     @Schema(description = BOOK_COPY_BARCODE_DESCRIPTION, example = BOOK_COPY_BARCODE_EXAMPLE)
-    @field:NotBlank(message = REQUIRED_FIELD_VALIDATION_MESSAGE)
     @field:Min(value = 0, message = BOOK_COPY_BARCODE_VALIDATION_MESSAGE)
     var barcode: Long = -1
 )
