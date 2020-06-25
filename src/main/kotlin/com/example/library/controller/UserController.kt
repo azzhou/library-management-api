@@ -45,7 +45,8 @@ class UserController @Autowired constructor(
     }
 
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Register a new user account")
+    @Operation(summary = "Register a new user account",
+        description = "$REDIRECT_TO_LOGIN_MESSAGE $AUTHORIZATION_RESPONSE_MESSAGE")
     @ResponseStatus(HttpStatus.CREATED)
     fun register(
         @io.swagger.v3.oas.annotations.parameters.RequestBody(description = USER_REGISTRATION_DESCRIPTION + ". " +
@@ -99,7 +100,8 @@ class UserController @Autowired constructor(
     }
 
     @PostMapping("/token", produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Obtain authentication token")
+    @Operation(summary = "Sign in (i.e. obtain authentication token)",
+        description = "$REDIRECT_TO_SIGNUP_MESSAGE $AUTHORIZATION_RESPONSE_MESSAGE")
     fun login(
         @io.swagger.v3.oas.annotations.parameters.RequestBody(description = USER_LOGIN_DESCRIPTION + ". " +
             REQUEST_BODY_VALIDATION_MESSAGE)

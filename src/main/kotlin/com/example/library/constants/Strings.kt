@@ -60,7 +60,7 @@ const val BOOK_AVAILABLE_COPIES_DESCRIPTION = "Number of copies available"
 const val BOOK_TOTAL_COPIES_DESCRIPTION = "Total number of copies owned by library"
 
 const val BOOK_TITLE_EXAMPLE = "Warbreaker"
-const val BOOK_ISBN_EXAMPLE = "9780765320308"
+const val BOOK_ISBN_EXAMPLE = "9780765320038"
 const val BOOK_AUTHOR_IDS_EXAMPLE = "[5]"
 const val BOOK_PUBLISHER_EXAMPLE = "Tor Books"
 const val BOOK_LANGUAGE_EXAMPLE = "English"
@@ -118,6 +118,10 @@ const val AUTHENTICATION_REQUIRED_MESSAGE = "<p>Authentication is required to ac
 const val AUTHENTICATION_STEPS_MESSAGE = "<p>To test in the Swagger UI, you need to add a security token to the " +
     "header of your request by clicking the lock icon in the upper right. If you have already signed up, then POST to " +
     "/users/token with your login info. Otherwise, you can POST to /users/ to create a new account.</p>"
+const val REDIRECT_TO_LOGIN_MESSAGE = "<p>If you have already created an account, POST to /users/token to sign in.</p>"
+const val REDIRECT_TO_SIGNUP_MESSAGE = "<p>If you do not have an account, POST to /users to create one.</p>"
+const val AUTHORIZATION_RESPONSE_MESSAGE = "<p>The JSON response includes an authorization token that can be used to " +
+    "access secured endpoints.</p>"
 
 // Request info messages
 const val REQUEST_BODY_VALIDATION_MESSAGE = "View schema below to see validation requirements."
