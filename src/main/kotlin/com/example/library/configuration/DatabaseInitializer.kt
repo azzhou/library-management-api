@@ -25,7 +25,7 @@ class DatabaseInitializer @Autowired constructor (
     private val authorRepository: AuthorRepository
 ){
     @Bean
-    @Profile("dev", "prod")
+    @Profile("dev")
     fun adminInitializer() = ApplicationRunner {
         val adminEmail = "admin@library.com"
         val adminPassword: String = System.getenv("LIBRARY_ADMIN_PASSWORD")
@@ -42,7 +42,7 @@ class DatabaseInitializer @Autowired constructor (
     }
 
     @Bean
-    @Profile("dev", "prod")
+    @Profile("dev")
     fun bookInitializer() = ApplicationRunner {
         val authorList = mutableListOf<Author>()
         val booksList = mutableListOf<List<Book>>()
