@@ -2,7 +2,6 @@
 library/HELP.md
 .gradle
 **/build/*
-!**/build/libs/
 
 # Intellij
 ../.idea
