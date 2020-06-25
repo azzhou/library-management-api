@@ -11,6 +11,7 @@ import com.example.library.service.BookCatalogService
 import com.example.library.service.BookManagementService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
@@ -76,7 +77,9 @@ class BookCopyController @Autowired constructor(
     }
 
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Add new book copy to the database")
+    @Operation(summary = "Add new book copy to the database",
+        description = AUTHENTICATION_REQUIRED_MESSAGE + LIBRARIAN_REQUIRED_MESSAGE + AUTHENTICATION_STEPS_MESSAGE,
+        security = [SecurityRequirement(name = "bearer-jwt")])
     @ResponseStatus(HttpStatus.CREATED)
     fun addBookCopy(
         @io.swagger.v3.oas.annotations.parameters.RequestBody(description = BOOK_COPY_REGISTRATION_DESCRIPTION + ". " +
