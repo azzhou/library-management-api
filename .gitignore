@@ -1,0 +1,15 @@
+# Project
+library/HELP.md
+.gradle
+**/build/*
+!**/build/libs/
+
+# Intellij
+../.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+# Other
+planning
