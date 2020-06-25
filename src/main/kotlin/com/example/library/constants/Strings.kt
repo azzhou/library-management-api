@@ -115,9 +115,9 @@ const val SELF_OR_LIBRARIAN_REQUIRED_MESSAGE = "<p>You must be the user that thi
     "or you must have the LIBRARIAN or ADMIN security role.<p>"
 const val LIBRARIAN_REQUIRED_MESSAGE = "<p>You must have the LIBRARIAN OR ADMIN security role.</p>"
 const val AUTHENTICATION_REQUIRED_MESSAGE = "<p>Authentication is required to access this.</p>"
-const val AUTHENTICATION_STEPS_MESSAGE = "<p>To test in the Swagger UI, obtain an " +
-    "authentication token by POSTing to /user/token. Then add the token to the header of " +
-    "this request by clicking the lock icon in the upper right.</p>"
+const val AUTHENTICATION_STEPS_MESSAGE = "<p>To test in the Swagger UI, you need to add a security token to the " +
+    "header of your request by clicking the lock icon in the upper right. If you have already signed up, then POST to " +
+    "/users/token with your login info. Otherwise, you can POST to /users/ to create a new account.</p>"
 
 // Request info messages
 const val REQUEST_BODY_VALIDATION_MESSAGE = "View schema below to see validation requirements."
