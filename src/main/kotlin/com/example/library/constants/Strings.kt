@@ -23,7 +23,8 @@ const val AUTHOR_ID_EXAMPLE = "5"
 const val USER_DESCRIPTION = "User details"
 const val USER_REGISTRATION_DESCRIPTION = "New user creation details"
 const val USER_LOGIN_DESCRIPTION = "User login details"
-const val USER_UPDATE_DESCRIPTION = "User update details (not all fields required)"
+const val USER_UPDATE_DESCRIPTION = "User update details. Only fields being updated need to be included. " +
+    "Changing user permissions requires admin authorization."
 const val USER_EMAIL_DESCRIPTION = "Email of the user"
 const val USER_FIRST_NAME_DESCRIPTION = "First name of the user"
 const val USER_LAST_NAME_DESCRIPTION = "Last name of the user"
@@ -60,7 +61,7 @@ const val BOOK_AVAILABLE_COPIES_DESCRIPTION = "Number of copies available"
 const val BOOK_TOTAL_COPIES_DESCRIPTION = "Total number of copies owned by library"
 
 const val BOOK_TITLE_EXAMPLE = "Warbreaker"
-const val BOOK_ISBN_EXAMPLE = "9780765320038"
+const val BOOK_ISBN_EXAMPLE = "9780765360038"
 const val BOOK_AUTHOR_IDS_EXAMPLE = "[5]"
 const val BOOK_PUBLISHER_EXAMPLE = "Tor Books"
 const val BOOK_LANGUAGE_EXAMPLE = "English"
@@ -122,13 +123,17 @@ const val REDIRECT_TO_LOGIN_MESSAGE = "<p>If you have already created an account
 const val REDIRECT_TO_SIGNUP_MESSAGE = "<p>If you do not have an account, POST to /users to create one.</p>"
 const val AUTHORIZATION_RESPONSE_MESSAGE = "<p>The JSON response includes an authorization token that can be used to " +
     "access secured endpoints.</p>"
+const val PAGINATION_MESSAGE = "<p>Results returned are paginated according to the optional " +
+    "\${spring.data.web.pageable.page-parameter} and \${spring.data.web.pageable.size-parameter} query parameters. " +
+    "Links to the first, last, and neighboring pages are included in the response if they exist."
 
 // Request info messages
-const val REQUEST_BODY_VALIDATION_MESSAGE = "View schema below to see validation requirements."
+const val REQUEST_BODY_VALIDATION_MESSAGE = "To see validation requirements, click the 'schema' button below."
 
 // Request query parameter messages
-const val FILTER_BOOKS_BY_AUTHOR_ID_MESSAGE = "Filter to books written by the author with this id. " +
-    "If included, all other optional query parameters will be ignored."
+const val FILTER_BOOKS_BY_AUTHOR_ID_MESSAGE = "Filter to books written by the author with this id. Intended to be " +
+    "leveraged in combination with the /authors endpoint for smooth navigation among related resources. " +
+    "If included, other optional queries (excluding pagination) will be ignored."
 const val FILTER_BOOKS_BY_TITLE_MESSAGE = "Filter to books with titles containing this string. " +
     "Cannot be used with any other optional query parameters."
 const val FILTER_AUTHORS_BY_FIRST_NAME_MESSAGE = "Filter to authors with this first name. " +
@@ -139,3 +144,7 @@ const val FILTER_BOOK_COPIES_BY_ISBN_MESSAGE = "Filter to copies of the book wit
     "Enter as 13 digits with no hyphens or spaces."
 const val FILTER_LOANS_BY_USER_ID_MESSAGE = "Filter to loans belonging to the user with this id number."
 
+
+// Pagination
+const val PAGINATION_PAGE_MESSAGE = "Zero-based page number (0..N) of the paginated output that is returned"
+const val PAGINATION_SIZE_MESSAGE = "Number of items per page used to paginate results"
