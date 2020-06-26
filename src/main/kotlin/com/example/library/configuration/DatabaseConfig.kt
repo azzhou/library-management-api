@@ -12,7 +12,7 @@ import javax.sql.DataSource
 @Configuration
 class DatabaseConfig {
     @Bean
-    @Profile("dev", "prod")
+    @Profile("prod")
     fun dataSource(): DataSource {
         val dbUri = URI(System.getenv("DATABASE_URL"))
 
