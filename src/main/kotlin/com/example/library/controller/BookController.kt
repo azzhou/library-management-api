@@ -10,7 +10,6 @@ import com.example.library.service.BookManagementService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PagedResourcesAssembler
@@ -35,7 +34,6 @@ class BookController @Autowired constructor(
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Search for books")
-    @PageableAsQueryParam
     fun getAllBooks(
         @Parameter(hidden = true) pageable: Pageable? = null
     ): PagedModel<BookSimpleResponse> {
@@ -46,7 +44,6 @@ class BookController @Autowired constructor(
     // Spring boot has difficulty with overloading, so need to include "title_contains" despite it not being
     // part of this method because otherwise a request including both parameters causes issues
     @GetMapping(params = ["author_id", "title_contains"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @PageableAsQueryParam
     fun getBooksWithAuthorId(
         @Parameter(description = FILTER_BOOKS_BY_AUTHOR_ID_MESSAGE, example = AUTHOR_ID_EXAMPLE)
         @RequestParam(name = "author_id", required = false)
@@ -60,7 +57,7 @@ class BookController @Autowired constructor(
     }
 
     @GetMapping(params = ["title_contains"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @PageableAsQueryParam
+    @PageableObjectAsParams
     fun getBooksWithTitleContaining(
         @Parameter(description = FILTER_BOOKS_BY_TITLE_MESSAGE, example = BOOK_TITLE_EXAMPLE)
         @RequestParam(name = "title_contains", required = false)
@@ -77,7 +74,7 @@ class BookController @Autowired constructor(
     }
 
     @GetMapping("/{isbn}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Search for book by ISBN-13")
+    @Operation(summary = "Search for a specific book by ISBN-13")
     fun getBookWithIsbn(
         @Parameter(description = BOOK_ISBN_DESCRIPTION, example = BOOK_ISBN_EXAMPLE)
         @PathVariable

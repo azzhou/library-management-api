@@ -9,7 +9,6 @@ import com.example.library.service.BookLoanService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PagedResourcesAssembler
@@ -32,7 +31,6 @@ class LoanController @Autowired constructor(
     @Operation(summary = "Search for loans of book copies to users",
         description = AUTHENTICATION_REQUIRED_MESSAGE + SELF_OR_LIBRARIAN_REQUIRED_MESSAGE + AUTHENTICATION_STEPS_MESSAGE,
         security = [SecurityRequirement(name = "bearer-jwt")])
-    @PageableAsQueryParam
     fun getAllLoans(
         @Parameter(hidden = true) pageable: Pageable? = null
     ): PagedModel<LoanResponse> {
@@ -41,7 +39,7 @@ class LoanController @Autowired constructor(
     }
 
     @GetMapping(params = ["user_id"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @PageableAsQueryParam
+    @PageableObjectAsParams
     fun getLoansWithUserId(
         @Parameter(description = FILTER_LOANS_BY_USER_ID_MESSAGE, example = LOAN_ID_EXAMPLE)
         @RequestParam(name = "user_id", required = false)
@@ -69,7 +67,7 @@ class LoanController @Autowired constructor(
     }
 
     @GetMapping("/{loan_id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Search for loan by id",
+    @Operation(summary = "Search for a specific loan by id number",
         description = AUTHENTICATION_REQUIRED_MESSAGE + SELF_OR_LIBRARIAN_REQUIRED_MESSAGE + AUTHENTICATION_STEPS_MESSAGE,
         security = [SecurityRequirement(name = "bearer-jwt")])
     fun getLoanWithId(
@@ -94,7 +92,7 @@ class LoanController @Autowired constructor(
     }
 
     @PostMapping("/{loan_id}/renewal", produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Return a book copy to the library",
+    @Operation(summary = "Renew a borrowed book",
         description = AUTHENTICATION_REQUIRED_MESSAGE + SELF_OR_LIBRARIAN_REQUIRED_MESSAGE + AUTHENTICATION_STEPS_MESSAGE,
         security = [SecurityRequirement(name = "bearer-jwt")])
     fun renewBook(

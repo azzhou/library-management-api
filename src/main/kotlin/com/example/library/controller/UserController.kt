@@ -11,7 +11,6 @@ import com.example.library.service.UserService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PagedResourcesAssembler
@@ -33,10 +32,10 @@ class UserController @Autowired constructor(
 ) {
 
     @GetMapping
-    @Operation(summary = "Search for loans of book copies to users",
+    @Operation(summary = "Search for users",
         description = AUTHENTICATION_REQUIRED_MESSAGE + LIBRARIAN_REQUIRED_MESSAGE + AUTHENTICATION_STEPS_MESSAGE,
         security = [SecurityRequirement(name = "bearer-jwt")])
-    @PageableAsQueryParam
+    @PageableObjectAsParams
     fun getAllUsers(
         @Parameter(hidden = true) pageable: Pageable? = null
     ): PagedModel<UserSimpleResponse> {
@@ -59,7 +58,7 @@ class UserController @Autowired constructor(
     }
 
     @GetMapping("/{user_id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Search for user by identification number",
+    @Operation(summary = "Search for a specific user by id number",
         description = AUTHENTICATION_REQUIRED_MESSAGE + SELF_OR_LIBRARIAN_REQUIRED_MESSAGE + AUTHENTICATION_STEPS_MESSAGE,
         security = [SecurityRequirement(name = "bearer-jwt")])
     fun getUserWithId(

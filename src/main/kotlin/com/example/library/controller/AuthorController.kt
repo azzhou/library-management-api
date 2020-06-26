@@ -12,7 +12,6 @@ import com.example.library.service.BookManagementService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PagedResourcesAssembler
@@ -37,7 +36,7 @@ class AuthorController @Autowired constructor(
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Search for authors")
-    @PageableAsQueryParam
+    @PageableObjectAsParams
     fun getAuthorsWithName(
         @Parameter(description = FILTER_AUTHORS_BY_FIRST_NAME_MESSAGE, example = AUTHOR_FIRST_NAME_EXAMPLE)
         @RequestParam(name = "first_name", required = false)
@@ -59,9 +58,9 @@ class AuthorController @Autowired constructor(
     }
 
     @GetMapping("/{author_id}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Search for specific author by id number")
+    @Operation(summary = "Search for a specific author by id number")
     fun getAuthorWithId(
-        @Parameter(description = AUTHOR_ID_DESCRIPTION, example = AUTHOR_ID_EXAMPLE)
+        @Parameter(description = AUTHOR_ID_DESCRIPTION)
         @PathVariable(name = "author_id")
         authorId: Long
     ): AuthorResponse {

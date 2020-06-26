@@ -12,7 +12,6 @@ import com.example.library.service.BookManagementService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PagedResourcesAssembler
@@ -37,7 +36,6 @@ class BookCopyController @Autowired constructor(
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Search for book copies")
-    @PageableAsQueryParam
     fun getAllBookCopies(
         @Parameter(hidden = true) pageable: Pageable? = null
     ): PagedModel<BookCopySimpleResponse> {
@@ -46,7 +44,7 @@ class BookCopyController @Autowired constructor(
     }
 
     @GetMapping(params = ["isbn"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @PageableAsQueryParam
+    @PageableObjectAsParams
     fun getBookCopiesWithIsbn(
         @Parameter(description = FILTER_BOOK_COPIES_BY_ISBN_MESSAGE, example = BOOK_ISBN_EXAMPLE)
         @RequestParam(required = false)
@@ -66,7 +64,7 @@ class BookCopyController @Autowired constructor(
     }
 
     @GetMapping("/{barcode}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Search for book copy by barcode")
+    @Operation(summary = "Search for a specific book copy by barcode")
     fun getBookCopyWithBarcode(
         @Parameter(description = BOOK_COPY_BARCODE_DESCRIPTION, example = BOOK_COPY_BARCODE_EXAMPLE)
         @PathVariable
