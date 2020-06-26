@@ -24,9 +24,7 @@ interface BookCatalogService {
 
     fun getAuthorWithId(authorId: Long): Author
 
-    fun getAuthorsWithFullName(firstName: String, lastName: String, pageable: Pageable): Page<Author>
-
-    fun getAuthorsWithLastName(lastName: String, pageable: Pageable): Page<Author>
+    fun getAuthorsWithName(firstName: String? = null, lastName: String? = null, pageable: Pageable): Page<Author>
 
     fun getBooksWithTitleContaining(title: String, pageable: Pageable): Page<Book>
 }

@@ -11,9 +11,7 @@ import com.example.library.repository.BookCopyRepository
 import com.example.library.repository.BookRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -61,12 +59,18 @@ class BookCatalogServiceImpl @Autowired constructor(
         return authorRepository.findByIdOrNull(authorId) ?: throw AuthorNotFoundException(authorId)
     }
 
-    override fun getAuthorsWithFullName(firstName: String, lastName: String, pageable: Pageable): Page<Author> {
-        return authorRepository.findByFirstNameAndLastNameAllIgnoreCase(firstName, lastName, pageable)
-    }
-
-    override fun getAuthorsWithLastName(lastName: String, pageable: Pageable): Page<Author> {
-        return authorRepository.findByLastNameIgnoreCase(lastName, pageable)
+    override fun getAuthorsWithName(firstName: String?, lastName: String?, pageable: Pageable): Page<Author> {
+        return if (firstName != null) {
+            if (lastName != null) {
+                authorRepository.findByFirstNameAndLastNameAllIgnoreCase(firstName, lastName, pageable)
+            } else {
+                authorRepository.findByFirstNameIgnoreCase(firstName, pageable)
+            }
+        } else if (lastName != null) {
+            authorRepository.findByLastNameIgnoreCase(lastName, pageable)
+        } else {
+            getAllAuthors(pageable)
+        }
     }
 
     override fun getBooksWithTitleContaining(title: String, pageable: Pageable): Page<Book> {

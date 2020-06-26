@@ -38,45 +38,23 @@ class AuthorController @Autowired constructor(
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Search for authors")
     @PageableAsQueryParam
-    fun getAllAuthors(
-        @Parameter(hidden = true) pageable: Pageable? = null
-    ): PagedModel<AuthorSimpleResponse> {
-        val authors = bookCatalogService.getAllAuthors(pageable!!)
-        return pagedResourcesAssembler.toModel(authors, authorSimpleResponseAssembler)
-    }
-
-    @GetMapping(params = ["first_name", "last_name"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @PageableAsQueryParam
-    fun getAuthorsWithFullName(
+    fun getAuthorsWithName(
         @Parameter(description = FILTER_AUTHORS_BY_FIRST_NAME_MESSAGE, example = AUTHOR_FIRST_NAME_EXAMPLE)
         @RequestParam(name = "first_name", required = false)
-        firstName: String,
+        firstName: String? = null,
 
         @Parameter(description = FILTER_AUTHORS_BY_LAST_NAME_MESSAGE, example = AUTHOR_LAST_NAME_EXAMPLE)
         @RequestParam(name = "last_name", required = false)
-        lastName: String,
+        lastName: String? = null,
 
         @Parameter(hidden = true)
         pageable: Pageable? = null
     ): PagedModel<AuthorSimpleResponse> {
         // parameters received should have been encoded to be URL-safe, so need to decode before using
-        val firstNameDecoded = URLDecoder.decode(firstName, StandardCharsets.UTF_8.toString())
-        val lastNameDecoded = URLDecoder.decode(lastName, StandardCharsets.UTF_8.toString())
+        val firstNameDecoded = firstName?.let { URLDecoder.decode(firstName, StandardCharsets.UTF_8.toString()) }
+        val lastNameDecoded = lastName?.let { URLDecoder.decode(lastName, StandardCharsets.UTF_8.toString()) }
 
-        val authors = bookCatalogService.getAuthorsWithFullName(firstNameDecoded, lastNameDecoded, pageable!!)
-        return pagedResourcesAssembler.toModel(authors, authorSimpleResponseAssembler)
-    }
-
-    @GetMapping(params = ["last_name"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @PageableAsQueryParam
-    fun getAuthorsWithLastName(
-        @RequestParam(name = "last_name", required = false) lastName: String,
-        @Parameter(hidden = true) pageable: Pageable? = null
-    ): PagedModel<AuthorSimpleResponse> {
-        // parameters received should have been encoded to be URL-safe, so need to decode before using
-        val lastNameDecoded = URLDecoder.decode(lastName, StandardCharsets.UTF_8.toString())
-
-        val authors = bookCatalogService.getAuthorsWithLastName(lastNameDecoded, pageable!!)
+        val authors = bookCatalogService.getAuthorsWithName(firstNameDecoded, lastNameDecoded, pageable!!)
         return pagedResourcesAssembler.toModel(authors, authorSimpleResponseAssembler)
     }
 

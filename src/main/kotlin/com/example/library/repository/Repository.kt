@@ -32,6 +32,8 @@ interface AuthorRepository : PagingAndSortingRepository<Author, Long> {
         lastName: String,
         pageable: Pageable
     ): Page<Author>
+
+    fun findByFirstNameIgnoreCase(firstName: String, pageable: Pageable): Page<Author>
 }
 
 
